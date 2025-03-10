@@ -110,6 +110,13 @@ def hex_to_text(hex_str):
     except Exception as e:
         return f"Error converting hexadecimal to text: {e}"
 
+def atbash_decrypt(encoded_str):
+    try:
+        decoded_str = ''.join([chr(155 - ord(c)) if 'A' <= c <= 'Z' else chr(219 - ord(c)) if 'a' <= c <= 'z' else c for c in encoded_str])
+        return decoded_str
+    except Exception as e:
+        return f"Error decoding Atbash: {e}"
+
 def main():
     try:
         while True:
@@ -122,7 +129,8 @@ def main():
             print("6. Decrypt Morse Code (e.g., '.... . .-.. .-.. --- / .-- --- .-. .-.. -..')")
             print("7. Decrypt Rail Fence Cipher (e.g., 'Hoo!el,Wrdl l' with key 3)")
             print("8. Convert Hexadecimal to Text (e.g., '48656c6c6f')")
-            print("9. Exit")
+            print("9. Decrypt Atbash (e.g., 'Zgyzhs')")
+            print("10. Exit")
             
             choice = input("Enter your choice: ")
             
@@ -161,6 +169,9 @@ def main():
                 hex_str = input("Enter hexadecimal string: ")
                 print("Converted text:", hex_to_text(hex_str))
             elif choice == '9':
+                encoded_str = input("Enter Atbash encoded string: ")
+                print("Decoded string:", atbash_decrypt(encoded_str))
+            elif choice == '10':
                 print("Exiting...")
                 break
             else:
