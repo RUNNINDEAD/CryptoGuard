@@ -104,55 +104,58 @@ def rail_fence_decrypt(ciphertext, key, offset):
         return f"Error decoding Rail Fence Cipher: {e}"
 
 def main():
-    while True:
-        print("\nChoose an option:")
-        print("1. Decrypt Base64 (e.g., 'SGVsbG8gd29ybGQ=')")
-        print("2. Compare SHA256 hash (e.g., 'hello' and '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824')")
-        print("3. Compare MD5 hash (e.g., 'hello' and '5d41402abc4b2a76b9719d911017c592')")
-        print("4. Convert Binary to Text (e.g., '01001000 01100101 01101100 01101100 01101111')")
-        print("5. Decrypt ROT13 (e.g., 'Uryyb jbeyq')")
-        print("6. Decrypt Morse Code (e.g., '.... . .-.. .-.. --- / .-- --- .-. .-.. -..')")
-        print("7. Decrypt Rail Fence Cipher (e.g., 'Hoo!el,Wrdl l' with key 3)")
-        print("8. Exit")
-        
-        choice = input("Enter your choice: ")
-        
-        if choice == '1':
-            encoded_str = input("Enter Base64 encoded string: ")
-            print("Decoded string:", base64_decrypt(encoded_str))
-        elif choice == '2':
-            input_str = input("Enter the original string: ")
-            hashed_str = input("Enter the SHA256 hash: ")
-            if sha256_compare(input_str, hashed_str):
-                print("The hash matches the input string.")
+    try:
+        while True:
+            print("\nChoose an option:")
+            print("1. Decrypt Base64 (e.g., 'SGVsbG8gd29ybGQ=')")
+            print("2. Compare SHA256 hash (e.g., 'hello' and '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824')")
+            print("3. Compare MD5 hash (e.g., 'hello' and '5d41402abc4b2a76b9719d911017c592')")
+            print("4. Convert Binary to Text (e.g., '01001000 01100101 01101100 01101100 01101111')")
+            print("5. Decrypt ROT13 (e.g., 'Uryyb jbeyq')")
+            print("6. Decrypt Morse Code (e.g., '.... . .-.. .-.. --- / .-- --- .-. .-.. -..')")
+            print("7. Decrypt Rail Fence Cipher (e.g., 'Hoo!el,Wrdl l' with key 3)")
+            print("8. Exit")
+            
+            choice = input("Enter your choice: ")
+            
+            if choice == '1':
+                encoded_str = input("Enter Base64 encoded string: ")
+                print("Decoded string:", base64_decrypt(encoded_str))
+            elif choice == '2':
+                input_str = input("Enter the original string: ")
+                hashed_str = input("Enter the SHA256 hash: ")
+                if sha256_compare(input_str, hashed_str):
+                    print("The hash matches the input string.")
+                else:
+                    print("The hash does not match the input string.")
+            elif choice == '3':
+                input_str = input("Enter the original string: ")
+                hashed_str = input("Enter the MD5 hash: ")
+                if md5_compare(input_str, hashed_str):
+                    print("The hash matches the input string.")
+                else:
+                    print("The hash does not match the input string.")
+            elif choice == '4':
+                binary_str = input("Enter binary string (space-separated): ")
+                print("Converted text:", binary_to_text(binary_str))
+            elif choice == '5':
+                encoded_str = input("Enter ROT13 encoded string: ")
+                print("Decoded string:", rot13_decrypt(encoded_str))
+            elif choice == '6':
+                morse_str = input("Enter Morse code (space-separated, '/' for word separation): ")
+                print("Decoded text:", morse_to_text(morse_str))
+            elif choice == '7':
+                ciphertext = input("Enter Rail Fence Cipher text: ")
+                key = int(input("Enter the key: "))
+                offset = int(input("Enter the offset: "))
+                print("Decoded text:", rail_fence_decrypt(ciphertext, key, offset))
+            elif choice == '8':
+                print("Exiting...")
+                break
             else:
-                print("The hash does not match the input string.")
-        elif choice == '3':
-            input_str = input("Enter the original string: ")
-            hashed_str = input("Enter the MD5 hash: ")
-            if md5_compare(input_str, hashed_str):
-                print("The hash matches the input string.")
-            else:
-                print("The hash does not match the input string.")
-        elif choice == '4':
-            binary_str = input("Enter binary string (space-separated): ")
-            print("Converted text:", binary_to_text(binary_str))
-        elif choice == '5':
-            encoded_str = input("Enter ROT13 encoded string: ")
-            print("Decoded string:", rot13_decrypt(encoded_str))
-        elif choice == '6':
-            morse_str = input("Enter Morse code (space-separated, '/' for word separation): ")
-            print("Decoded text:", morse_to_text(morse_str))
-        elif choice == '7':
-            ciphertext = input("Enter Rail Fence Cipher text: ")
-            key = int(input("Enter the key: "))
-            offset = int(input("Enter the offset: "))
-            print("Decoded text:", rail_fence_decrypt(ciphertext, key, offset))
-        elif choice == '8':
-            print("Exiting...")
-            break
-        else:
-            print("Invalid choice. Please try again.")
+                print("Invalid choice. Please try again.")
+    except KeyboardInterrupt:
+        print("\nExiting...")
 
 if __name__ == "__main__":
     main()
