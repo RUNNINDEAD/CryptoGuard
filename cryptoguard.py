@@ -103,6 +103,13 @@ def rail_fence_decrypt(ciphertext, key, offset):
     except Exception as e:
         return f"Error decoding Rail Fence Cipher: {e}"
 
+def hex_to_text(hex_str):
+    try:
+        bytes_object = bytes.fromhex(hex_str)
+        return bytes_object.decode('utf-8')
+    except Exception as e:
+        return f"Error converting hexadecimal to text: {e}"
+
 def main():
     try:
         while True:
@@ -114,7 +121,8 @@ def main():
             print("5. Decrypt ROT13 (e.g., 'Uryyb jbeyq')")
             print("6. Decrypt Morse Code (e.g., '.... . .-.. .-.. --- / .-- --- .-. .-.. -..')")
             print("7. Decrypt Rail Fence Cipher (e.g., 'Hoo!el,Wrdl l' with key 3)")
-            print("8. Exit")
+            print("8. Convert Hexadecimal to Text (e.g., '48656c6c6f')")
+            print("9. Exit")
             
             choice = input("Enter your choice: ")
             
@@ -150,6 +158,9 @@ def main():
                 offset = int(input("Enter the offset: "))
                 print("Decoded text:", rail_fence_decrypt(ciphertext, key, offset))
             elif choice == '8':
+                hex_str = input("Enter hexadecimal string: ")
+                print("Converted text:", hex_to_text(hex_str))
+            elif choice == '9':
                 print("Exiting...")
                 break
             else:
